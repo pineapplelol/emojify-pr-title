@@ -5,6 +5,8 @@ inputs:
     description: "The GitHub authentication token"
     required: true
     default: ${{ github.token }}
+  emoji-list:
+    descriptions: "JSON of emojis available for random selection"
 runs:
   using: "node12"
   main: "dist/index.js"
