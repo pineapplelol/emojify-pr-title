@@ -1,0 +1,13 @@
+name: "Emojify PR Title"
+description: "All PRs start with an emoji"
+inputs:
+  github-token:
+    description: "The GitHub authentication token"
+    required: true
+    default: ${{ github.token }}
+runs:
+  using: "node12"
+  main: "dist/index.js"
+branding:
+  icon: "cloud-lightning"
+  color: "purple"

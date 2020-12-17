@@ -1,0 +1,21 @@
+{
+  "name": "emojify-pr-title",
+  "description": "All PRs start with an emoji",
+  "homepage": "https://pineapple.lol/",
+  "version": "1.0",
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.25.1"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pineapplelol/emojify-pr-title.git"
+  }
+}
