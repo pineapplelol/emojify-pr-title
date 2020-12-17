@@ -1,9 +1,12 @@
 import json
 import urllib.request
+import regex
+import emoji
 
 data = urllib.request.urlopen("https://unicode.org/Public/emoji/13.0/emoji-test.txt")
 
 excluded_subgroups = [
+    "time",
     "warning",
     "arrow",
     "religion",
@@ -29,12 +32,14 @@ subgroup = ""
 emojis = []
 
 for line in data:
-    line = line.decode('utf-8')
+    line = line.decode("utf-8")
     if line.startswith(subgroup_prefix):
         subgroup = line[len(subgroup_prefix) :].strip()
     if fully_qualified in line and subgroup not in excluded_subgroups:
-        emojis.append(line[line.find("#") :][2])
-
+        words = regex.findall(r"\X", line)
+        for w in words:
+            if any(char in emoji.UNICODE_EMOJI for char in w):
+                emojis.append(w)
 
 data = {"emojis": emojis}
 

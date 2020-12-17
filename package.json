@@ -2,10 +2,11 @@
   "name": "emojify-pr-title",
   "description": "All PRs start with an emoji",
   "homepage": "https://pineapple.lol/",
-  "version": "1.0",
+  "version": "1.1",
   "dependencies": {
     "@actions/core": "^1.2.6",
-    "@actions/github": "^4.0.0"
+    "@actions/github": "^4.0.0",
+    "node-fetch": "^2.6.1"
   },
   "devDependencies": {
     "@vercel/ncc": "^0.25.1"
