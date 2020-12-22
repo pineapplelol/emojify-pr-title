@@ -2,6 +2,14 @@ module.exports =
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ 804:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse("{\"mapping\":[{\"fix\":[\"🔧\"]},{\"bug\":[\"🐛\",\"🐞\"]},{\"upgrade\":[\"⬆️\"]},{\"authentication\":[\"🔒\",\"🔐\"]},{\"design\":[\"🎨\",\"🧑‍🎨\",\"🖌️\"]},{\"style\":[\"🎨\",\"🧑‍🎨\",\"🖌️\"]},{\"mobile\":[\"📱\"]}]}");
+
+/***/ }),
+
 /***/ 221:
 /***/ ((module) => {
 
@@ -15,7 +23,7 @@ module.exports = JSON.parse("{\"emojis\":[\"😀\",\"😃\",\"😄\",\"😁\",\"
 
 const core = __webpack_require__(24);
 const emojiList = __webpack_require__(221);
-const emojiMap = __webpack_require__(533);
+const emojiMap = __webpack_require__(804);
 const fetch = __webpack_require__(460);
 const github = __webpack_require__(16);
 
@@ -5910,14 +5918,6 @@ function wrappy (fn, cb) {
     return ret
   }
 }
-
-
-/***/ }),
-
-/***/ 533:
-/***/ ((module) => {
-
-module.exports = eval("require")("./emojis/emoji_mapping.json");
 
 
 /***/ }),

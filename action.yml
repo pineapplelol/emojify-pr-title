@@ -7,9 +7,14 @@ inputs:
     default: ${{ github.token }}
   emoji-list:
     descriptions: "JSON of emojis available for random selection"
+  use-emoji-map:
+    descriptions: "Use word mapping to identify used emoji"
+    default: false
+  emoji-map:
+    descriptions: "JSON of emoji mapping to use"
 runs:
   using: "node12"
   main: "dist/index.js"
 branding:
-  icon: "cloud-lightning"
+  icon: "smile"
   color: "purple"
