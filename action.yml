@@ -16,5 +16,5 @@ runs:
   using: "node12"
   main: "dist/index.js"
 branding:
-  icon: "smile"
+  icon: "cloud-lightning"
   color: "purple"
