@@ -16,6 +16,8 @@ By default, the bot will choose to pick a random emoji from the [default generat
 
 ### Customizing
 
+**Emoji Mapping**
+
 To enable emoji mapping, set the parameter `use-emoji-map` parameter to try like
 
 ```
@@ -40,6 +42,8 @@ with:
   emoji-map: 'https://raw.githubusercontent.com/pineapplelol/emojify-pr-title/master/emojis/emoji_mapping.json'
 ```
 
+**Custom Emoji List**
+
 A custom random emoji list can be provided by adding the `emoji-list` parameter with a URL to a JSON file with the format
 
 ```
@@ -51,4 +55,32 @@ For example
 ```
 with:
   emoji-list: 'https://raw.githubusercontent.com/pineapplelol/emojify-pr-title/master/emojis/emojis.json'
+```
+
+**Spacing**
+
+Enforcing a single space after the emoji before the text is default. To disable,
+
+```
+require-spacing: false
+```
+
+### Example Config File
+
+name: Emojify PR Title
+
+on: pull_request
+
+```
+jobs:
+  emojify-pr-title:
+    runs-on: ubuntu-latest
+    name: Emojify PR Title
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Emojify PR Title
+        uses: pineapplelol/emojify-pr-title@v1.3
+        with:
+          use-emoji-map: true
 ```

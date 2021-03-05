@@ -5,6 +5,9 @@ inputs:
     description: "The GitHub authentication token"
     required: true
     default: ${{ github.token }}
+  require-space:
+    descriptions: "Require a space after emoji"
+    default: true
   emoji-list:
     descriptions: "JSON of emojis available for random selection"
   use-emoji-map:
