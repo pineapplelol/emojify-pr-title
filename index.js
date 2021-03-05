@@ -13,7 +13,8 @@ const titleSplit = (title) => {
     .split(emojiRegex)
     .map((s) => s.trim())
     .filter(String);
-  return [...emoji, ...text];
+  const concat = (...arrays) => [].concat(...arrays.filter(Array.isArray));
+  return concat(emoji, text);
 };
 
 const genNewTitle = (title, useMap, map, allEmojis) => {
