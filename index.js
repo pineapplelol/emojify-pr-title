@@ -55,6 +55,7 @@ async function run() {
   try {
     const inputs = {
       token: core.getInput("github-token", { required: true }),
+      requireSpace: core.getInput("require-space"),
       emojiList: core.getInput("emoji-list"),
       useEmojiMap: core.getInput("use-emoji-map", { required: true }),
       emojiMap: core.getInput("emoji-map"),
@@ -105,6 +106,11 @@ async function run() {
           allEmojis
         );
       } else core.warning("No PR title text found");
+    }
+    if (inputs.requireSpace && processedTitle.length == 2) {
+      newTitle = processedTitle[0] + " " + processedTitle[1];
+      needToUpdateTitle = newTitle !== title;
+      if (needToUpdateTitle) core.info("Inserting space");
     }
     if (processedTitle.length > 2) {
       core.info("Many emojis found, picking first one");
