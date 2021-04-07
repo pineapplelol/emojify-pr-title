@@ -80,7 +80,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Emojify PR Title
-        uses: pineapplelol/emojify-pr-title@v1.3.1
+        uses: pineapplelol/emojify-pr-title@v1.3.2
         with:
           use-emoji-map: true
 ```
