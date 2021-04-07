@@ -121,17 +121,17 @@ async function run() {
 
     if (needToUpdateTitle) {
       request.title = newTitle;
-      core.info(`New title: ${newTitle}`);
+      const octokit = github.getOctokit(inputs.token);
+      const response = await octokit.pulls.update(request);
+
+      core.info(`Response: ${response.status}`);
+      if (response.status !== 200) {
+        core.error("Updating the pull request has failed");
+      } else {
+        core.info(`New title: ${newTitle}`);
+      }
     } else {
       core.info("No updates were made to PR title");
-    }
-
-    const octokit = github.getOctokit(inputs.token);
-    const response = await octokit.pulls.update(request);
-
-    core.info(`Response: ${response.status}`);
-    if (response.status !== 200) {
-      core.error("Updating the pull request has failed");
     }
   } catch (error) {
     core.setFailed(error.message);
