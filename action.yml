@@ -10,6 +10,8 @@ inputs:
     default: true
   emoji-list:
     descriptions: "JSON of emojis available for random selection"
+  blocklist:
+    descriptions: "List of emojis not allowed in title"
   use-emoji-map:
     descriptions: "Use word mapping to identify used emoji"
     default: false
