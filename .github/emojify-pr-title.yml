@@ -1,0 +1,11 @@
+on: [pull_request]
+
+jobs:
+  emojify-pr-title:
+    runs-on: ubuntu-latest
+    name: emojify pr title - test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: emojify step
+        uses: ./
