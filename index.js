@@ -5,7 +5,13 @@ const emojiMap = require("./emojis/emoji_mapping.json");
 const fetch = require("node-fetch");
 const github = require("@actions/github");
 const er = require("emoji-regex/RGI_Emoji.js");
-const { cleanTitle, titleSplit, getRandomEmoji, reduceTitle, genNewTitle } = require("./util");
+const {
+  cleanTitle,
+  titleSplit,
+  getRandomEmoji,
+  reduceTitle,
+  genNewTitle,
+} = require("./util");
 
 const emojiRegex = er();
 
@@ -71,7 +77,8 @@ async function run() {
     };
 
     const title = github.context.payload.pull_request.title;
-    const cleanedTitle = cleanTitle(github.context.payload.pull_request.title, blocklist) || "";
+    const cleanedTitle =
+      cleanTitle(github.context.payload.pull_request.title, blocklist) || "";
     if (cleanedTitle !== title) core.info("Blocked emojis found, removing!");
     const processedTitle = titleSplit(title, er());
     let newTitle = "";

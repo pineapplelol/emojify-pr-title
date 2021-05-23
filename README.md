@@ -76,7 +76,6 @@ with:
   blocklist: 'https://raw.githubusercontent.com/pineapplelol/emojify-pr-title/master/emojis/blocklist.json'
 ```
 
-
 **Spacing**
 
 Enforcing a single space after the emoji before the text is default. To disable,
