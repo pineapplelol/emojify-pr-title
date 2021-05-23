@@ -1,0 +1,29 @@
+name: test
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: api/node_modules
+          key: ${{ runner.os }}-cache
+
+      - name: Install dependencies
+        working-directory: ./
+        run: npm install
+
+      - name: Run tests
+        working-directory: ./
+        run: npm test
