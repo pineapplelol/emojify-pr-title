@@ -1,11 +1,19 @@
 const core = require("@actions/core");
 const emojiList = require("./emojis/emojis.json");
+const blockList = require("./emojis/blocklist.json");
 const emojiMap = require("./emojis/emoji_mapping.json");
 const fetch = require("node-fetch");
 const github = require("@actions/github");
 const er = require("emoji-regex/RGI_Emoji.js");
 
 const emojiRegex = er();
+
+const cleanTitle = (title, blocklist) => {
+  let newTitle = title;
+  for (let e of blocklist) newTitle = newTitle.replace(e, "");
+  if (newTitle !== title) core.info("Blocked emojis found, removing!");
+  return newTitle;
+}
 
 const titleSplit = (title) => {
   const emoji = title.match(emojiRegex);
@@ -17,17 +25,23 @@ const titleSplit = (title) => {
   return concat(emoji, text);
 };
 
-const genNewTitle = (title, useMap, map, allEmojis) => {
+const getRandomEmoji = (allEmojis, blockList) => {
+  let allowedEmojis = allEmojis.filter(x => !blockList.includes(x));
+  if (allowedEmojis === []) core.error("No eligible emojis");
+  return allowedEmojis[Math.floor(Math.random() * allowedEmojis.length)];
+}
+
+const genNewTitle = (title, useMap, map, allEmojis, blocklist) => {
   if (useMap) {
     for (const m of map) {
       const w = Object.keys(m)[0];
       if (title.includes(w)) {
-        const emoji = m[w][Math.floor(Math.random() * m[w].length)];
+        const emoji = getRandomEmoji(m[w], blocklist);
         return emoji + " " + title;
       }
     }
   }
-  const randomEmoji = allEmojis[Math.floor(Math.random() * allEmojis.length)];
+  const randomEmoji = getRandomEmoji(allEmojis, blocklist);
   return randomEmoji + " " + title;
 };
 
@@ -58,6 +72,7 @@ async function run() {
       token: core.getInput("github-token", { required: true }),
       requireSpace: core.getInput("require-space"),
       emojiList: core.getInput("emoji-list"),
+      blockList: core.getInput("blocklist"),
       useEmojiMap: core.getInput("use-emoji-map", { required: true }),
       emojiMap: core.getInput("emoji-map"),
     };
@@ -71,6 +86,17 @@ async function run() {
     } else {
       core.info("Using default emoji list");
       allEmojis = emojiList["emojis"];
+    }
+
+    let blocklist = [];
+    if (inputs.blockList) {
+      const blocklistJSON = await getJSON(inputs.blockList);
+      blocklist = blocklistJSON["blocklist"];
+      core.info("Using custom blocklist");
+      core.info(blocklist);
+    } else {
+      core.info("Using default blocklist");
+      blocklist = blockList["blocklist"];
     }
 
     let emojiMapToUse = {};
@@ -90,7 +116,7 @@ async function run() {
       pull_number: github.context.payload.pull_request.number,
     };
 
-    const title = github.context.payload.pull_request.title || "";
+    const title = cleanTitle(github.context.payload.pull_request.title, blocklist) || "";
     const processedTitle = titleSplit(title);
     let newTitle = "";
 
@@ -104,7 +130,8 @@ async function run() {
           title,
           inputs.useEmojiMap,
           emojiMapToUse,
-          allEmojis
+          allEmojis,
+          blocklist
         );
       } else core.warning("No PR title text found");
     }

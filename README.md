@@ -57,6 +57,26 @@ with:
   emoji-list: 'https://raw.githubusercontent.com/pineapplelol/emojify-pr-title/master/emojis/emojis.json'
 ```
 
+**Emoji Blocklist**
+
+There is an option for a blocklist for emojis not allowed in the title and will not be selected. If these emojis already exist in the title, it will be removed.
+
+The default is a list of emojis that are not able to be deteced by emoji-regex, and thus will cause errors in PR titles.
+
+A custom random emoji list can be provided by adding the `blocklist` parameter with a URL to a JSON file with the format
+
+```
+{"blocklist": [...]}
+```
+
+For example
+
+```
+with:
+  blocklist: 'https://raw.githubusercontent.com/pineapplelol/emojify-pr-title/master/emojis/blocklist.json'
+```
+
+
 **Spacing**
 
 Enforcing a single space after the emoji before the text is default. To disable,
