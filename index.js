@@ -5,55 +5,15 @@ const emojiMap = require("./emojis/emoji_mapping.json");
 const fetch = require("node-fetch");
 const github = require("@actions/github");
 const er = require("emoji-regex/RGI_Emoji.js");
+const {
+  cleanTitle,
+  titleSplit,
+  getRandomEmoji,
+  reduceTitle,
+  genNewTitle,
+} = require("./util");
 
 const emojiRegex = er();
-
-const cleanTitle = (title, blocklist) => {
-  let newTitle = title;
-  for (let e of blocklist) newTitle = newTitle.replace(e, "");
-  if (newTitle !== title) core.info("Blocked emojis found, removing!");
-  return newTitle;
-}
-
-const titleSplit = (title) => {
-  const emoji = title.match(emojiRegex);
-  const text = title
-    .split(emojiRegex)
-    .map((s) => s.trim())
-    .filter(String);
-  const concat = (...arrays) => [].concat(...arrays.filter(Array.isArray));
-  return concat(emoji, text);
-};
-
-const getRandomEmoji = (allEmojis, blockList) => {
-  let allowedEmojis = allEmojis.filter(x => !blockList.includes(x));
-  if (allowedEmojis === []) core.error("No eligible emojis");
-  return allowedEmojis[Math.floor(Math.random() * allowedEmojis.length)];
-}
-
-const genNewTitle = (title, useMap, map, allEmojis, blocklist) => {
-  if (useMap) {
-    for (const m of map) {
-      const w = Object.keys(m)[0];
-      if (title.includes(w)) {
-        const emoji = getRandomEmoji(m[w], blocklist);
-        return emoji + " " + title;
-      }
-    }
-  }
-  const randomEmoji = getRandomEmoji(allEmojis, blocklist);
-  return randomEmoji + " " + title;
-};
-
-const reduceTitle = (processedTitle) => {
-  let firstEmoji = "";
-  let text = "";
-  for (let t of processedTitle) {
-    if (emojiRegex.test(t) && firstEmoji === "") firstEmoji = t;
-    else if (!emojiRegex.test(t)) text += t;
-  }
-  return firstEmoji + " " + text;
-};
 
 async function getJSON(url) {
   return fetch(url)
@@ -116,8 +76,11 @@ async function run() {
       pull_number: github.context.payload.pull_request.number,
     };
 
-    const title = cleanTitle(github.context.payload.pull_request.title, blocklist) || "";
-    const processedTitle = titleSplit(title);
+    const title = github.context.payload.pull_request.title;
+    const cleanedTitle =
+      cleanTitle(github.context.payload.pull_request.title, blocklist) || "";
+    if (cleanedTitle !== title) core.info("Blocked emojis found, removing!");
+    const processedTitle = titleSplit(title, er());
     let newTitle = "";
 
     let needToUpdateTitle = false;
@@ -133,6 +96,7 @@ async function run() {
           allEmojis,
           blocklist
         );
+        if (!newTitle) core.error("No eligible emojis");
       } else core.warning("No PR title text found");
     }
     if (inputs.requireSpace && processedTitle.length == 2) {
@@ -143,7 +107,7 @@ async function run() {
     if (processedTitle.length > 2) {
       core.info("Many emojis found, picking first one");
       needToUpdateTitle = true;
-      newTitle = reduceTitle(processedTitle);
+      newTitle = reduceTitle(processedTitle, er);
     }
 
     if (needToUpdateTitle) {

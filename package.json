@@ -10,11 +10,22 @@
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.25.1"
+    "@vercel/ncc": "^0.25.1",
+    "@zeit/ncc": "^0.22.3",
+    "eslint": "^7.27.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.23.3",
+    "jest": "^26.6.3",
+    "prettier": "2.3.0"
   },
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "ncc build index.js --minify",
+    "lint": "eslint --ext js",
+    "lint:fix": "eslint --fix --ext js",
+    "format": "prettier --write \"./**/*.{js,jsx,json,md}\"",
+    "format:check": "prettier --check \"./**/*.{js,jsx,json,md}\"",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
