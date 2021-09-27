@@ -35,6 +35,7 @@ async function run() {
       blockList: core.getInput("blocklist"),
       useEmojiMap: core.getInput("use-emoji-map", { required: true }),
       emojiMap: core.getInput("emoji-map"),
+      useFuzzy: core.getInput("use-fuzzy"),
     };
 
     let allEmojis = [];
@@ -94,7 +95,8 @@ async function run() {
           inputs.useEmojiMap,
           emojiMapToUse,
           allEmojis,
-          blocklist
+          blocklist,
+          inputs.useFuzzy
         );
         if (!newTitle) core.error("No eligible emojis");
       } else core.warning("No PR title text found");
