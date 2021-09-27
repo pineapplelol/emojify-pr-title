@@ -35,7 +35,9 @@ const getMappedEmoji = (title, map, blocklist, allEmojis, useFuzzy) => {
         }
       }
       return getRandomEmoji(allEmojis, blocklist);
-    } else if (title.includes(mapKey)) {
+    }
+
+    if (title.includes(mapKey)) {
       const emoji = getRandomEmoji(m[mapKey], blocklist);
       return emoji ? emoji + " " + title : null;
     }
