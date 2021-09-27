@@ -1,3 +1,5 @@
+const levenshtein = require("fast-levenshtein");
+
 const cleanTitle = (title, blocklist) => {
   let newTitle = title;
   for (let e of blocklist) newTitle = newTitle.replace(e, "");
@@ -14,21 +16,42 @@ const titleSplit = (title, emojiRegex) => {
   return concat(emoji, text);
 };
 
-const getRandomEmoji = (allEmojis, blockList) => {
-  let allowedEmojis = allEmojis.filter((x) => !blockList.includes(x));
+const getRandomEmoji = (allEmojis, blocklist) => {
+  const allowedEmojis = allEmojis.filter((emoji) => !blocklist.includes(emoji));
   if (allowedEmojis.length === 0) return null;
   return allowedEmojis[Math.floor(Math.random() * allowedEmojis.length)];
 };
 
-const genNewTitle = (title, useMap, map, allEmojis, blocklist) => {
-  if (useMap) {
-    for (const m of map) {
-      const w = Object.keys(m)[0];
-      if (title.includes(w)) {
-        const emoji = getRandomEmoji(m[w], blocklist);
-        return emoji ? emoji + " " + title : null;
+const getMappedEmoji = (title, map, blocklist, allEmojis, useFuzzy) => {
+  for (const m of map) {
+    const mapKey = Object.keys(m)[0];
+
+    if (useFuzzy) {
+      const words = title.split(/[ ,.'"!?-_]/g);
+      for (const word of words) {
+        if (levenshtein.get(mapKey, word) < 3) {
+          const emoji = getRandomEmoji(m[mapKey], blocklist);
+          return emoji ? emoji + " " + title : null;
+        }
       }
+      return getRandomEmoji(allEmojis, blocklist);
+    } else if (title.includes(mapKey)) {
+      const emoji = getRandomEmoji(m[mapKey], blocklist);
+      return emoji ? emoji + " " + title : null;
     }
+  }
+};
+
+const genNewTitle = (
+  title,
+  useMap,
+  map,
+  allEmojis,
+  blocklist,
+  useFuzzy = false
+) => {
+  if (useMap) {
+    return getMappedEmoji(title, map, blocklist, allEmojis, useFuzzy);
   }
   const randomEmoji = getRandomEmoji(allEmojis, blocklist);
   return randomEmoji ? randomEmoji + " " + title : null;
