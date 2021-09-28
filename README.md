@@ -49,6 +49,7 @@ Checks for mapping words with a tolerance of 3 characters (e.g. "test ~= "testin
 Has no effect without enabling mapping.
 
 Enable by setting the following parameter:
+
 ```
 use-fuzzy: true
 ```
