@@ -1,9 +1,9 @@
-const levenshtein = require('fast-levenshtein');
+const levenshtein = require("fast-levenshtein");
 
 const cleanTitle = (title, blocklist) => {
   let newTitle = title;
   blocklist.forEach((emoji) => {
-    newTitle = newTitle.replace(emoji, '');
+    newTitle = newTitle.replace(emoji, "");
   });
   return newTitle;
 };
@@ -58,7 +58,7 @@ const genNewTitle = (
   map,
   allEmojis,
   blocklist,
-  useFuzzy = false,
+  useFuzzy = false
 ) => {
   if (useMap) {
     return getMappedEmoji(title, map, blocklist, allEmojis, useFuzzy);
@@ -68,12 +68,12 @@ const genNewTitle = (
 };
 
 const reduceTitle = (processedTitle, er) => {
-  let firstEmoji = '';
-  let text = '';
+  let firstEmoji = "";
+  let text = "";
   processedTitle.forEach((token) => {
     const emojiRegex = er();
     if (emojiRegex.test(token)) {
-      if (firstEmoji === '') firstEmoji = token;
+      if (firstEmoji === "") firstEmoji = token;
     } else {
       text += `${token.trim()} `;
     }
