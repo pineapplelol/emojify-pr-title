@@ -42,6 +42,18 @@ with:
   emoji-map: 'https://raw.githubusercontent.com/pineapplelol/emojify-pr-title/master/emojis/emoji_mapping.json'
 ```
 
+**Fuzzy Emoji Mapping**
+
+Checks for mapping words with a tolerance of 3 characters (e.g. "test ~= "testing") as opposed to being a strict substring of the title.
+
+Has no effect without enabling mapping.
+
+Enable by setting the following parameter:
+
+```
+use-fuzzy: true
+```
+
 **Custom Emoji List**
 
 A custom random emoji list can be provided by adding the `emoji-list` parameter with a URL to a JSON file with the format
