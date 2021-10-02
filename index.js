@@ -1,6 +1,6 @@
 const core = require("@actions/core");
 const fetch = require("node-fetch");
-const { Octokit } = require("@octokit/action")
+const { Octokit } = require("@octokit/action");
 const github = require("@actions/github");
 const er = require("emoji-regex");
 const emojiList = require("./emojis/emojis.json");
