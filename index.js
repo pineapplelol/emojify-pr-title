@@ -46,6 +46,8 @@ async function run() {
       blocklist = blocklistJSON.blocklist;
       core.info("Using custom blocklist");
       core.info(blocklist);
+    } else {
+      core.info("No blocklist provided");
     }
 
     let emojiMapToUse = {};

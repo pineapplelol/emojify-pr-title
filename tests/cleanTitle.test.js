@@ -18,11 +18,11 @@ test("cleanTitle with emojis, no blocklist", () => {
 test("cleanTitle with text + emojis, blocklist with emojis", () => {
   const title = "👁‍🗨🗨This is a title";
   const cleanedTitle = "This is a title";
-  expect(cleanTitle(title, ['👁‍🗨', '🗨'])).toBe(cleanedTitle);
+  expect(cleanTitle(title, ["👁‍🗨", "🗨"])).toBe(cleanedTitle);
 });
 
 test("cleanTitle with emojis, blocklist with emojis", () => {
   const title = "👁‍🗨🗨";
   const cleanedTitle = "";
-  expect(cleanTitle(title, ['👁‍🗨', '🗨'])).toBe(cleanedTitle);
+  expect(cleanTitle(title, ["👁‍🗨", "🗨"])).toBe(cleanedTitle);
 });
