@@ -2,6 +2,10 @@
 
 A GitHub action to ensure that all PRs start with an emoji! If a PR is opened without an emoji, this bot will select an emoji and add it to the beginning of the title. If there are many emojis, it will remove all but the first one. This ensures a clean commit history upon merging.
 
+![Example](https://user-images.githubusercontent.com/7104017/135731782-b0e6b596-8015-4ed1-a004-8e09d48cd866.png)
+
+![Example](https://user-images.githubusercontent.com/7104017/135731783-784fbdb1-aa28-436c-a893-896703d52c88.png)
+
 ## Emojis
 
 There are two ways that the bot will choose an emoji.
