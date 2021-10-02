@@ -1,4 +1,4 @@
-const er = require("emoji-regex/RGI_Emoji.js");
+const er = require("emoji-regex");
 const { reduceTitle } = require("../util");
 
 test("reduceTitle with one emoji, text end no space", () => {

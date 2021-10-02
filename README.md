@@ -42,16 +42,10 @@ with:
   emoji-map: 'https://raw.githubusercontent.com/pineapplelol/emojify-pr-title/master/emojis/emoji_mapping.json'
 ```
 
-**Fuzzy Emoji Mapping**
-
-Checks for mapping words with a tolerance of 3 characters (e.g. "test ~= "testing") as opposed to being a strict substring of the title.
-
-Has no effect without enabling mapping.
-
-Enable by setting the following parameter:
+This mapping uses fuzzy emoji mapping, with a tolerance of 3 characters (e.g. "test ~= "testing") as opposed to being a strict substring of the title. To disable fuzzy matching and require strict word matching
 
 ```
-use-fuzzy: true
+use-fuzzy: false
 ```
 
 **Custom Emoji List**
