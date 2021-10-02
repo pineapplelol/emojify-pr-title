@@ -57200,7 +57200,6 @@ async function getJSON(url) {
 async function run() {
   try {
     const inputs = {
-      token: core.getInput("github-token", { required: true }),
       requireSpace: core.getInput("require-space"),
       emojiList: core.getInput("emoji-list"),
       blockList: core.getInput("blocklist"),
