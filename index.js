@@ -1,13 +1,14 @@
 const core = require("@actions/core");
 const fetch = require("node-fetch");
+const { Octokit } = require("@octokit/action");
 const github = require("@actions/github");
 const er = require("emoji-regex");
 const emojiList = require("./emojis/emojis.json");
-const blockList = require("./emojis/blocklist.json");
 const emojiMap = require("./emojis/emoji_mapping.json");
 const { cleanTitle, titleSplit, reduceTitle, genNewTitle } = require("./util");
 
 const emojiRegex = er();
+const octokit = new Octokit();
 
 async function getJSON(url) {
   return fetch(url)
@@ -21,7 +22,6 @@ async function getJSON(url) {
 async function run() {
   try {
     const inputs = {
-      token: core.getInput("github-token", { required: true }),
       requireSpace: core.getInput("require-space"),
       emojiList: core.getInput("emoji-list"),
       blockList: core.getInput("blocklist"),
@@ -48,8 +48,7 @@ async function run() {
       core.info("Using custom blocklist");
       core.info(blocklist);
     } else {
-      core.info("Using default blocklist");
-      blocklist = blockList.blocklist;
+      core.info("No blocklist provided");
     }
 
     let emojiMapToUse = {};
@@ -106,7 +105,6 @@ async function run() {
 
     if (needToUpdateTitle) {
       request.title = newTitle;
-      const octokit = github.getOctokit(inputs.token);
       const response = await octokit.pulls.update(request);
 
       core.info(`Response: ${response.status}`);

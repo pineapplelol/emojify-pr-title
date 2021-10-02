@@ -2,6 +2,10 @@
 
 A GitHub action to ensure that all PRs start with an emoji! If a PR is opened without an emoji, this bot will select an emoji and add it to the beginning of the title. If there are many emojis, it will remove all but the first one. This ensures a clean commit history upon merging.
 
+![Example](https://user-images.githubusercontent.com/7104017/135731782-b0e6b596-8015-4ed1-a004-8e09d48cd866.png)
+
+![Example](https://user-images.githubusercontent.com/7104017/135731783-784fbdb1-aa28-436c-a893-896703d52c88.png)
+
 ## Emojis
 
 There are two ways that the bot will choose an emoji.
@@ -67,19 +71,10 @@ with:
 
 There is an option for a blocklist for emojis not allowed in the title and will not be selected. If these emojis already exist in the title, it will be removed.
 
-The default is a list of emojis that are not able to be deteced by emoji-regex, and thus will cause errors in PR titles.
-
 A custom random emoji list can be provided by adding the `blocklist` parameter with a URL to a JSON file with the format
 
 ```
 {"blocklist": [...]}
-```
-
-For example
-
-```
-with:
-  blocklist: 'https://raw.githubusercontent.com/pineapplelol/emojify-pr-title/master/emojis/blocklist.json'
 ```
 
 **Spacing**
@@ -105,7 +100,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Emojify PR Title
-        uses: pineapplelol/emojify-pr-title@v1.3.2
+        uses: pineapplelol/emojify-pr-title@v1.5.1
         with:
           use-emoji-map: true
 ```

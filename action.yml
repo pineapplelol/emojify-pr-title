@@ -1,7 +1,7 @@
 name: "Emojify PR Title"
 description: "All PRs start with an emoji"
 inputs:
-  github-token:
+  token:
     description: "The GitHub authentication token"
     required: true
     default: ${{ github.token }}

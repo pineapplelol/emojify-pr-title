@@ -1,6 +1,4 @@
 const { cleanTitle } = require("../util");
-const blockListJSON = require("../emojis/blocklist.json");
-const blocklist = blockListJSON["blocklist"];
 
 test("cleanTitle with all text, no blocklist", () => {
   const title = "This is a title";
@@ -17,19 +15,14 @@ test("cleanTitle with emojis, no blocklist", () => {
   expect(cleanTitle(title, [])).toBe(title);
 });
 
-test("cleanTitle with all text, default blocklist", () => {
-  const title = "This is a title";
-  expect(cleanTitle(title, blocklist)).toBe(title);
-});
-
-test("cleanTitle with text + emojis, no blocklist", () => {
+test("cleanTitle with text + emojis, blocklist with emojis", () => {
   const title = "👁‍🗨🗨This is a title";
   const cleanedTitle = "This is a title";
-  expect(cleanTitle(title, blocklist)).toBe(cleanedTitle);
+  expect(cleanTitle(title, ["👁‍🗨", "🗨"])).toBe(cleanedTitle);
 });
 
-test("cleanTitle with emojis, no blocklist", () => {
+test("cleanTitle with emojis, blocklist with emojis", () => {
   const title = "👁‍🗨🗨";
   const cleanedTitle = "";
-  expect(cleanTitle(title, blocklist)).toBe(cleanedTitle);
+  expect(cleanTitle(title, ["👁‍🗨", "🗨"])).toBe(cleanedTitle);
 });
