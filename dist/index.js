@@ -14746,14 +14746,6 @@ module.exports = {
 
 /***/ }),
 
-/***/ 9847:
-/***/ ((module) => {
-
-module.exports = eval("require")("./emojis/blocklist.json");
-
-
-/***/ }),
-
 /***/ 5347:
 /***/ ((module) => {
 
@@ -15020,7 +15012,6 @@ const fetch = __nccwpck_require__(9806);
 const github = __nccwpck_require__(5016);
 const er = __nccwpck_require__(1728);
 const emojiList = __nccwpck_require__(2221);
-const blockList = __nccwpck_require__(9847);
 const emojiMap = __nccwpck_require__(2804);
 const { cleanTitle, titleSplit, reduceTitle, genNewTitle } = __nccwpck_require__(6448);
 
@@ -15064,9 +15055,6 @@ async function run() {
       blocklist = blocklistJSON.blocklist;
       core.info("Using custom blocklist");
       core.info(blocklist);
-    } else {
-      core.info("Using default blocklist");
-      blocklist = blockList.blocklist;
     }
 
     let emojiMapToUse = {};

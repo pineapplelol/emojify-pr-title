@@ -3,7 +3,6 @@ const fetch = require("node-fetch");
 const github = require("@actions/github");
 const er = require("emoji-regex");
 const emojiList = require("./emojis/emojis.json");
-const blockList = require("./emojis/blocklist.json");
 const emojiMap = require("./emojis/emoji_mapping.json");
 const { cleanTitle, titleSplit, reduceTitle, genNewTitle } = require("./util");
 
@@ -47,9 +46,6 @@ async function run() {
       blocklist = blocklistJSON.blocklist;
       core.info("Using custom blocklist");
       core.info(blocklist);
-    } else {
-      core.info("Using default blocklist");
-      blocklist = blockList.blocklist;
     }
 
     let emojiMapToUse = {};
