@@ -58,7 +58,7 @@ const genNewTitle = (
   map,
   allEmojis,
   blocklist,
-  useFuzzy = false
+  useFuzzy = true
 ) => {
   if (useMap) {
     return getMappedEmoji(title, map, blocklist, allEmojis, useFuzzy);
