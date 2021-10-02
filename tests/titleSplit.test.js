@@ -1,4 +1,4 @@
-const er = require("emoji-regex/RGI_Emoji.js");
+const er = require("emoji-regex");
 const { titleSplit } = require("../util");
 
 const emojiRegex = er();
