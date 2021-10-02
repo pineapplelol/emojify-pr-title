@@ -96,7 +96,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Emojify PR Title
-        uses: pineapplelol/emojify-pr-title@v1.3.2
+        uses: pineapplelol/emojify-pr-title@v1.5.1
         with:
           use-emoji-map: true
 ```
