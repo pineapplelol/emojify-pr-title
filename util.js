@@ -1,4 +1,14 @@
+const fetch = require("node-fetch");
 const levenshtein = require("fast-levenshtein");
+
+const getJSON = async (url) => {
+  return fetch(url)
+    .then((res) => res.json())
+    .then((json) => json)
+    .catch((err) => {
+      throw err;
+    });
+}
 
 const cleanTitle = (title, blocklist) => {
   let newTitle = title;
@@ -28,7 +38,7 @@ const getMappedEmoji = (title, map, blocklist, useFuzzy, defaultEmoji) => {
   const caselessTitle = title.toLowerCase();
   const tokens = caselessTitle.split(/[ ,.'"!?-_]/g);
 
-  for (const token in tokens) {
+  for (const token of tokens) {
     for (const mapKey in map) {
       if (useFuzzy) {
         const distance = levenshtein.get(mapKey, token);
@@ -75,6 +85,7 @@ const reduceTitle = (processedTitle, er) => {
 };
 
 module.exports = {
+  getJSON,
   cleanTitle,
   titleSplit,
   getRandomEmoji,

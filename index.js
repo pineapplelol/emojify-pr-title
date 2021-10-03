@@ -1,23 +1,13 @@
 const core = require("@actions/core");
-const fetch = require("node-fetch");
 const { Octokit } = require("@octokit/action");
 const github = require("@actions/github");
 const er = require("emoji-regex");
 const emojiList = require("./emojis/emojis.json");
 const emojiMap = require("./emojis/emoji_mapping.json");
-const { cleanTitle, titleSplit, reduceTitle, genNewTitle } = require("./util");
+const { getJSON, cleanTitle, titleSplit, reduceTitle, genNewTitle } = require("./util");
 
 const emojiRegex = er();
 const octokit = new Octokit();
-
-async function getJSON(url) {
-  return fetch(url)
-    .then((res) => res.json())
-    .then((json) => json)
-    .catch((err) => {
-      throw err;
-    });
-}
 
 async function run() {
   try {

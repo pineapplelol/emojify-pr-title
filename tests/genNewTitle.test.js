@@ -26,14 +26,14 @@ test("genNewTitle with emoji allow empty block", () => {
 test("genNewTitle with map, allow, full block", () => {
   const title = "This is a title";
   const useMap = true;
-  const map = [{ title: ["🤪"] }];
+  const map = { title: ["🤪"] };
   expect(genNewTitle(title, useMap, map, ["🤪"], ["🤪"])).toBeNull();
 });
 
 test("genNewTitle with map, allow, empty block", () => {
   const title = "This is a title";
   const useMap = true;
-  const map = [{ title: ["🤪"] }];
+  const map = { title: ["🤪"] };
   const newTitle = "🤪 This is a title";
   expect(genNewTitle(title, useMap, map, ["🤪"], [])).toStrictEqual(newTitle);
 });
@@ -41,7 +41,7 @@ test("genNewTitle with map, allow, empty block", () => {
 test("genNewTitle with map, empty allow, empty block", () => {
   const title = "This is a title";
   const useMap = true;
-  const map = [{ title: ["🤪"] }];
+  const map = { title: ["🤪"] };
   const newTitle = "🤪 This is a title";
   expect(genNewTitle(title, useMap, map, [], [])).toStrictEqual(newTitle);
 });
@@ -49,7 +49,7 @@ test("genNewTitle with map, empty allow, empty block", () => {
 test("genNewTitle with map, with fuzzy match at tolerance", () => {
   const title = "This is a tetles";
   const useMap = true;
-  const map = [{ title: ["🤪"] }];
+  const map = { title: ["🤪"] };
   const newTitle = "🤪 This is a tetles";
   expect(genNewTitle(title, useMap, map, [], [], true)).toStrictEqual(newTitle);
 });
@@ -57,6 +57,6 @@ test("genNewTitle with map, with fuzzy match at tolerance", () => {
 test("genNewTitle with map, with fuzzy match above tolerance", () => {
   const title = "This is a teales";
   const useMap = true;
-  const map = [{ title: ["🤪"] }];
+  const map = { title: ["🤪"] };
   expect(genNewTitle(title, useMap, map, [], [], true)).toBeNull();
 });
