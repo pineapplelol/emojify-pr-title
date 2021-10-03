@@ -24,32 +24,27 @@ const getRandomEmoji = (allEmojis, blocklist) => {
   return allowedEmojis[Math.floor(Math.random() * allowedEmojis.length)];
 };
 
-const getMappedEmoji = (title, map, blocklist, allEmojis, useFuzzy) => {
-  // eslint-disable-next-line no-restricted-syntax
-  for (const mapSet of map) {
-    const mapKey = Object.keys(mapSet)[0].toLowerCase();
-    const caselessTitle = title.toLowerCase();
+const getMappedEmoji = (title, map, blocklist, useFuzzy, defaultEmoji) => {
+  const caselessTitle = title.toLowerCase();
+  const tokens = caselessTitle.split(/[ ,.'"!?-_]/g);
 
-    if (useFuzzy) {
-      const tokens = caselessTitle.split(/[ ,.'"!?-_]/g);
-
-      // eslint-disable-next-line no-restricted-syntax
-      for (const token of tokens) {
+  for (const token in tokens) {
+    for (const mapKey in map) {
+      if (useFuzzy) {
         const distance = levenshtein.get(mapKey, token);
         if (distance < 3) {
-          const emoji = getRandomEmoji(mapSet[mapKey], blocklist);
-          return emoji ? `${emoji} ${title}` : null;
+          const emoji = getRandomEmoji(map[mapKey], blocklist);
+          return emoji ? emoji : defaultEmoji;
         }
       }
-    }
-
-    if (caselessTitle.includes(mapKey)) {
-      const emoji = getRandomEmoji(mapSet[mapKey], blocklist);
-      return emoji ? `${emoji} ${title}` : null;
+      if (mapKey.toLowerCase() == token) {
+        const emoji = getRandomEmoji(map[mapKey], blocklist);
+        return emoji ? emoji : defaultEmoji;
+      }
     }
   }
 
-  return null;
+  return defaultEmoji;
 };
 
 const genNewTitle = (
@@ -60,11 +55,9 @@ const genNewTitle = (
   blocklist,
   useFuzzy = true
 ) => {
-  if (useMap) {
-    return getMappedEmoji(title, map, blocklist, allEmojis, useFuzzy);
-  }
   const randomEmoji = getRandomEmoji(allEmojis, blocklist);
-  return randomEmoji ? `${randomEmoji} ${title}` : null;
+  const emoji = (useMap) ? getMappedEmoji(title, map, blocklist, useFuzzy, randomEmoji) : randomEmoji;
+  return emoji ? `${emoji} ${title}` : null;
 };
 
 const reduceTitle = (processedTitle, er) => {
