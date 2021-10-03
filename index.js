@@ -4,7 +4,13 @@ const github = require("@actions/github");
 const er = require("emoji-regex");
 const emojiList = require("./emojis/emojis.json");
 const emojiMap = require("./emojis/emoji_mapping.json");
-const { getJSON, cleanTitle, titleSplit, reduceTitle, genNewTitle } = require("./util");
+const {
+  getJSON,
+  cleanTitle,
+  titleSplit,
+  reduceTitle,
+  genNewTitle,
+} = require("./util");
 
 const emojiRegex = er();
 const octokit = new Octokit();
@@ -96,7 +102,6 @@ async function run() {
     if (needToUpdateTitle) {
       request.title = newTitle;
       const response = await octokit.pulls.update(request);
-
       core.info(`Response: ${response.status}`);
       if (response.status !== 200) {
         core.error("Updating the pull request has failed");

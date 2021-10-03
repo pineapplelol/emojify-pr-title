@@ -8,7 +8,7 @@ const getJSON = async (url) => {
     .catch((err) => {
       throw err;
     });
-}
+};
 
 const cleanTitle = (title, blocklist) => {
   let newTitle = title;
@@ -66,7 +66,9 @@ const genNewTitle = (
   useFuzzy = true
 ) => {
   const randomEmoji = getRandomEmoji(allEmojis, blocklist);
-  const emoji = (useMap) ? getMappedEmoji(title, map, blocklist, useFuzzy, randomEmoji) : randomEmoji;
+  const emoji = useMap
+    ? getMappedEmoji(title, map, blocklist, useFuzzy, randomEmoji)
+    : randomEmoji;
   return emoji ? `${emoji} ${title}` : null;
 };
 

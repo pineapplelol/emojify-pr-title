@@ -51152,7 +51152,6 @@ async function run() {
     if (needToUpdateTitle) {
       request.title = newTitle;
       const response = await octokit.pulls.update(request);
-
       core.info(`Response: ${response.status}`);
       if (response.status !== 200) {
         core.error("Updating the pull request has failed");
