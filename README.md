@@ -32,10 +32,10 @@ This will enable using emoji mapping with the [default map](https://raw.githubus
 
 ```
 {
-  "mapping": [
-    {"word": [emojis for the word]}
+  "mapping": {
+    "word": [emojis for the word]
     ...
-  ]
+  }
 }
 ```
 
