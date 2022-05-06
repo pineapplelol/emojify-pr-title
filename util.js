@@ -1,8 +1,9 @@
-const fetch = require("node-fetch");
+const axios = require("axios");
 const levenshtein = require("fast-levenshtein");
 
 const getJSON = async (url) => {
-  return fetch(url)
+  return axios
+    .get(url)
     .then((res) => res.json())
     .then((json) => json)
     .catch((err) => {
@@ -57,18 +58,9 @@ const getMappedEmoji = (title, map, blocklist, useFuzzy, defaultEmoji) => {
   return defaultEmoji;
 };
 
-const genNewTitle = (
-  title,
-  useMap,
-  map,
-  allEmojis,
-  blocklist,
-  useFuzzy = true
-) => {
+const genNewTitle = (title, useMap, map, allEmojis, blocklist, useFuzzy = true) => {
   const randomEmoji = getRandomEmoji(allEmojis, blocklist);
-  const emoji = useMap
-    ? getMappedEmoji(title, map, blocklist, useFuzzy, randomEmoji)
-    : randomEmoji;
+  const emoji = useMap ? getMappedEmoji(title, map, blocklist, useFuzzy, randomEmoji) : randomEmoji;
   return emoji ? `${emoji} ${title}` : null;
 };
 
