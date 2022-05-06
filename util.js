@@ -58,9 +58,18 @@ const getMappedEmoji = (title, map, blocklist, useFuzzy, defaultEmoji) => {
   return defaultEmoji;
 };
 
-const genNewTitle = (title, useMap, map, allEmojis, blocklist, useFuzzy = true) => {
+const genNewTitle = (
+  title,
+  useMap,
+  map,
+  allEmojis,
+  blocklist,
+  useFuzzy = true
+) => {
   const randomEmoji = getRandomEmoji(allEmojis, blocklist);
-  const emoji = useMap ? getMappedEmoji(title, map, blocklist, useFuzzy, randomEmoji) : randomEmoji;
+  const emoji = useMap
+    ? getMappedEmoji(title, map, blocklist, useFuzzy, randomEmoji)
+    : randomEmoji;
   return emoji ? `${emoji} ${title}` : null;
 };
 
