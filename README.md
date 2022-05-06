@@ -2,6 +2,8 @@
 
 A GitHub action to ensure that all PRs start with an emoji! If a PR is opened without an emoji, this bot will select an emoji and add it to the beginning of the title. If there are many emojis, it will remove all but the first one. This ensures a clean commit history upon merging.
 
+## Example Usage
+
 ![Example](https://user-images.githubusercontent.com/7104017/135731782-b0e6b596-8015-4ed1-a004-8e09d48cd866.png)
 
 ![Example](https://user-images.githubusercontent.com/7104017/135731783-784fbdb1-aa28-436c-a893-896703d52c88.png)
@@ -18,11 +20,11 @@ There are two ways that the bot will choose an emoji.
 
 By default, the bot will choose to pick a random emoji from the [default generated list](https://raw.githubusercontent.com/pineapplelol/emojify-pr-title/master/emojis/emojis.json). It is collected from official [Unicode Emoji 13.0](http://www.unicode.org/emoji/charts-13.0/). A python script will read all fully-qualified emojis from the [official test file](https://unicode.org/Public/emoji/13.0/), and compile them into `emojis/emojis.json`. To run, `python emojis/emoji_parse.py`. Inside the file there is a list of excluded categories which will not include the emojis to the output file.
 
-### Customizing
+### Customizing Behavior
 
 **Emoji Mapping**
 
-To enable emoji mapping, set the parameter `use-emoji-map` parameter to try like
+To enable emoji mapping, set the parameter `use-emoji-map` to
 
 ```
 use-emoji-map: true
@@ -87,11 +89,9 @@ require-spacing: false
 
 ### Example Config File
 
-name: Emojify PR Title
-
-on: pull_request
-
 ```
+on: [pull_request]
+
 jobs:
   emojify-pr-title:
     runs-on: ubuntu-latest
