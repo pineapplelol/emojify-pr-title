@@ -2,23 +2,23 @@
   "name": "emojify-pr-title",
   "description": "All PRs start with an emoji",
   "homepage": "https://pineapple.lol/",
-  "version": "1.5.1",
+  "version": "1.5.4",
   "dependencies": {
-    "@actions/core": "^1.2.6",
-    "@actions/github": "^5.0.0",
-    "@octokit/action": "^3.17.3",
-    "emoji-regex": "^10.0.0",
-    "fast-levenshtein": "^3.0.0",
-    "node-fetch": "^2.6.1"
+    "@actions/core": "^1.8.0",
+    "@actions/github": "^5.0.1",
+    "@octokit/action": "^3.18.0",
+    "axios": "^0.27.2",
+    "emoji-regex": "^10.1.0",
+    "fast-levenshtein": "^3.0.0"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.31.1",
+    "@vercel/ncc": "^0.33.4",
     "@zeit/ncc": "^0.22.3",
-    "eslint": "^7.27.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.23.3",
-    "jest": "^27.2.4",
-    "prettier": "^2.4.1"
+    "eslint": "^8.14.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "jest": "^28.0.3",
+    "prettier": "^2.6.2"
   },
   "main": "index.js",
   "scripts": {

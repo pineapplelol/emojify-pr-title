@@ -1,8 +1,9 @@
-const fetch = require("node-fetch");
+const axios = require("axios");
 const levenshtein = require("fast-levenshtein");
 
 const getJSON = async (url) => {
-  return fetch(url)
+  return axios
+    .get(url)
     .then((res) => res.json())
     .then((json) => json)
     .catch((err) => {
